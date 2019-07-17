@@ -1,0 +1,119 @@
+<html>
+	<header>
+		<h1 style="text-align: center">Registration Page</h1>
+	</header>
+	<style>
+		form{
+		   position:fixed;
+		   top:12%;
+		   left:43%;
+		   width: 250px;
+		}
+		p{
+			color: #ff0000;
+			position:fixed;
+		   	top:25%;
+		   	left:43%;
+		   	width: 400px;
+		}
+		a{
+			position:fixed;
+		   	top:34%;
+		   	left:43%;
+		   	width: 250px;
+		}
+	</style>
+	<body>
+		<form action="Register.php" method="post">
+		<table>
+			<tr>
+				<td> Student ID</td>
+				<td>
+				   <input type="text" name="SID" size="10" maxlength="9"/>
+				</td>
+			</tr>
+			<tr>
+				<td> First Name</td>
+				<td>
+				   <input type="text" name="fname" size="20" maxlength="16"/>
+				</td>
+			</tr>
+			<tr>
+				<td> Last Name </td>
+				<td>
+				   <input type="text" name="lname" size="20" maxlength="16"/>
+				</td>
+			</tr>
+			<tr>
+				<td> Password</td>
+				<td>
+				   <input type="password" name="password" size="15" maxlength="40"/>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2" style="text-align: center;" ><input type="submit" value="Create Login"/></td>
+			</tr>
+		</table>
+		</form>
+	</body>
+</html>
+
+<?php
+if ($_SERVER['REQUEST_METHOD'] == 'POST')
+{
+$userFname = $_POST['fname'];
+$userLname = $_POST['lname'];
+$userStudentID= $_POST['SID'];
+$userPassword =$_POST['password'];
+if (!$userFname || !$userLname  || !$userStudentID || !$userPassword)
+	{
+       echo "<p>You have not entered all the required details.<br />
+             Please try again.</p>";
+        echo "<a href='Login.php'>Return to the Login page </a> &nbsp; &nbsp;";
+        // if any of the fields are not set, show error message and exit the program  
+    		exit;
+    }
+
+	$db_conn = new mysqli('localhost', 'admin', 'admin', 'booking');
+	if (mysqli_connect_errno()) 
+	{
+	    echo 'Connection to database failed:'.mysqli_connect_error();
+	    exit();
+    }
+    
+    $query = "INSERT INTO Students(StudentID,fname,lname,Password) VALUES("."'".$userStudentID."',"."'".$userFname."',"."'".$userLname."',"."'".$userPassword."'".");";
+    $stmt = $db_conn->prepare($query);
+    
+    $checkRepeat = "SELECT StudentID FROM Students"; // i am using the studentID in order to check if 
+    // the student entered has already being registerd
+    $stmt2 = $db_conn->prepare($checkRepeat);
+    $stmt2->execute();
+    $stmt2->store_result();
+    
+    $stmt2->bind_result($dbsid);
+	 while($stmt2->fetch())
+	  {
+	      if($dbsid==$userStudentID)
+	      {
+		 	echo "<p>Student ID already registered, please try a differet ID</p> <br /> <br />";
+		 	echo "<a href='Login.php'>Return to the login page </a> &nbsp; &nbsp;";
+	        //each user will have their own studentID and wont be able to register the same ID twice, if they try 
+	        //show an error message and exit the program
+	        exit;
+		  }
+    }
+    
+    $stmt->execute(); //insert user into the database 
+    if ($stmt->affected_rows > 0) {
+        echo  "<p>Login created!<p>";
+        echo "<a href='Login.php'>Click here to login now!</a>";
+	}else {
+        echo "<p>An error has occurred.<br/>
+              The user was not added.</p>";
+    }
+    $db_conn->close();
+    
+}
+    
+
+?>

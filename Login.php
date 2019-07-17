@@ -91,6 +91,7 @@ if (isset($_POST['userid']) && isset($_POST['password']))
     echo '</form>';
   }
 ?>
-
+<br/> <br />
+<a href="Register.php">Click here to create a Login</a>
 </body>
 </html>
