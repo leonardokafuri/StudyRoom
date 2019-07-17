@@ -1,17 +1,46 @@
-drop database if exists auth;
-create database if not exists auth;
-use auth;
+drop database if exists booking;
+create database if not exists booking;
+use booking;
 
 grant select, insert, update, delete, index, alter, create, drop 
-on auth.*
-to 'webauth' identified by 'webauth';
+on booking.*
+to 'admin' identified by 'admin';
 
-create table if not exists authorized_users (
-  name varchar(16) primary key,
-  password varchar(40) not null
+create table Students (
+  StudentID varchar(9) not null,
+  fname varchar(16) not null,
+  lname varchar(16) not null,
+  password varchar(40) not null,
+  PRIMARY KEY(StudentID)
 );
 
-INSERT INTO authorized_users VALUES
-  ('user1','pass1'),
-  ('user2','pass2'),
-  ('user3','pass3');
+create table Room(
+RoomNumber int not null,
+Building varchar(16) not null,
+PRIMARY KEY (RoomNumber)
+);
+
+create table RoomAvailability (
+RoomNumber int not null,
+Date date not null,
+Time varchar(14) not null,
+CONSTRAINT FK_Room_Availability FOREIGN KEY (RoomNumber)
+REFERENCES Room(RoomNumber)
+);
+
+create table RoomBooked
+(
+BookingID int AUTO_INCREMENT,
+StudentID varchar(9) not null ,
+RoomNumber int not null,
+Date date not null,
+Time varchar(14) not null,
+PRIMARY KEY (BookingID),
+CONSTRAINT FK_Room_Booked_SID FOREIGN KEY (StudentID) 
+REFERENCES Students(StudentID),
+CONSTRAINT FK_Room_Booked_RN FOREIGN KEY (RoomNumber)
+REFERENCES Room(RoomNumber)
+);
+
+INSERT INTO Students VALUES
+  ('admin','admin','admin','admin');
