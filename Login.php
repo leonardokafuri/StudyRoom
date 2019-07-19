@@ -63,7 +63,9 @@ if (isset($_POST['userid']) && isset($_POST['password']))
    if (isset($_SESSION['valid_user']))
   {
     echo '<p>You are logged in as: '.$_SESSION['valid_user'].' <br />';
-    echo '<a href="logout.php">Log out</a></p>';
+    echo '<a href="main.php">Book a room</a></p>';
+    echo '<a href="DeleteBooking.php">Manage  your Bookings</a></p>';
+	echo '<a href="logout.php">Log out</a></p>';
   }
   else
   {
@@ -82,16 +84,19 @@ if (isset($_POST['userid']) && isset($_POST['password']))
     echo '<form action="Login.php" method="post">';
     echo '<fieldset>';
     echo '<legend>Login Now!</legend>';
-    echo '<p><label for="userid">UserID:</label>';
+    echo '<p><label for="userid">StudentID:</label>';
     echo '<input type="text" name="userid" id="userid" size="30"/></p>';
     echo '<p><label for="password">Password:</label>';
     echo '<input type="password" name="password" id="password" size="30"/></p>';    
     echo '</fieldset>';
     echo '<button type="submit" name="login">Login</button>';
     echo '</form>';
+    echo "<br />";
+    
+    echo '<a href="Register.php">Click here to create a Login</a>';
   }
 ?>
 <br/> <br />
-<a href="Register.php">Click here to create a Login</a>
+
 </body>
 </html>
