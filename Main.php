@@ -72,7 +72,7 @@
                 echo 'Connection to database failed:'.mysqli_connect_error();
                 exit();
               }
-              $sql = "select * from room";
+              $sql = "SELECT * FROM Room WHERE Room.RoomNumber NOT IN (SELECT RoomNumber FROM RoomAvailability where date ="."'". $_SESSION['date']."'"."and time="."'". $_SESSION['time']."');";
               $res = mysqli_query($db_conn,$sql);
               if($res !== FALSE)
               {
