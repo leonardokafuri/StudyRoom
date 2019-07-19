@@ -30,7 +30,7 @@ REFERENCES Room(RoomNumber)
 
 create table RoomBooked
 (
-BookingID int AUTO_INCREMENT,
+BookingID int UNSIGNED not null AUTO_INCREMENT,
 StudentID varchar(9) not null ,
 RoomNumber int not null,
 Date date not null,
