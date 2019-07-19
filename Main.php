@@ -10,7 +10,7 @@
                             <form action="Main.php" method="POST">
                                 <div class="row2">
                                     <div class="col">
-                                        <input type="date" class="form-control" name="date"  placeholder="Date">
+                                        <input type="date" class="form-control" name="date" id="date" placeholder="Date">
                                         <select name="time">
                                         <option name="0">8:00-8:30</option>
                                         <option name="1">8:30-9:00</option>
@@ -42,7 +42,10 @@
                                     </div>
                                     <div class="col2">
                                         <br>
-                                        <input type="submit" class="btn btn-primary" id="loadCalendar" value="Go" name="go">
+                                        <input type="submit" class="btn btn-primary" id="loadCalendar" value="Search" name="go">
+                                        <form action="DeleteBooking.php">
+                                        <input type="button" value="Manage" name="manage">
+                                        </form>
                                     </div>
                                     
                                 </div>
@@ -55,16 +58,65 @@
 </html>
 
 <?php
+    session_start();
     if(isset($_POST['go']))
     {
         if(isset($_POST['date']))
         {
             $date = $_POST['date'];
+            $time = $_POST['time'];
             $db_conn = new mysqli('localhost', 'admin', 'admin', 'booking');
             if (mysqli_connect_errno()) {
                 echo 'Connection to database failed:'.mysqli_connect_error();
                 exit();
               }
+
+              $sql = "select * from room";
+              $res = mysqli_query($db_conn,$sql);
+              if($res !== FALSE)
+              {
+                if(mysqli_num_rows($res) == 0)
+                   print("no matching records");
+                else
+                {
+                    $id = 0;
+                    print("<form action='Main.php' method='POST'>");
+                    for($row = 1;$row<=mysqli_num_rows($res);$row++)
+                    {
+                        $record = mysqli_fetch_assoc($res);
+                        print("<input type='radio' name='room' value='".$record["RoomNumber"]."' id='".$id."'>".$record["RoomNumber"]." ".$record["Building"]."<br />");
+                        $id++;
+                    }
+                    print("<br />");
+                    print("<input type='submit' name='book' value='Book'>");
+                    print("</form>");
+                }
+              }
+        }
+    }
+    if(isset($_POST['book']))
+    {
+
+        $db_conn = new mysqli('localhost', 'admin', 'admin', 'booking');
+            if (mysqli_connect_errno()) {
+                echo 'Connection to database failed:'.mysqli_connect_error();
+                exit();
+              }
+        $room = $_POST['room'];
+        $user = $_SESSION['valid_user'];
+        print $room;
+        print $user;
+        print $date;
+        print $time;
+        if(!empty($date) && !empty($time) && !empty($room))
+        {
+            $sql = "insert into roombooked(StudentID,RoomNumber,Date,Time)
+            values('$user','$room','$date','$time')";
+            $res = mysqli_query($db_conn,$sql);
+            if($res)
+				print("Bookings added");
+			else
+				print("Problem ".mysqli_error($db_conn));
         }
     }
 
