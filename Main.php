@@ -43,9 +43,7 @@
                                     <div class="col2">
                                         <br>
                                         <input type="submit" class="btn btn-primary" id="loadCalendar" value="Search" name="go">
-                                        <form action="DeleteBooking.php">
-                                        <input type="button" value="Manage" name="manage">
-                                        </form>
+                                        <a href="DeleteBooking.php">Manage</a>
                                     </div>
                                     
                                 </div>
@@ -107,19 +105,21 @@
               }
         $room = $_POST['room'];
         $user = $_SESSION['valid_user'];
-        print $room;
-        print $user;
-        echo $_SESSION['date'];
-        echo $_SESSION['time'];
+        $date = $_SESSION['date'];
+        $time = $_SESSION['time'];
         if(!empty($date) && !empty($time) && !empty($room))
         {
             $sql = "insert into roombooked(StudentID,RoomNumber,Date,Time)
             values('$user','$room','$date','$time')";
+            $sql2 = "insert into roomavailability(RoomNumber,Date,Time)
+            values('$room','$date','$time')";
             $res = mysqli_query($db_conn,$sql);
+            $res = mysqli_query($db_conn,$sql2);
             if($res)
 				print("Bookings added");
 			else
-				print("Problem ".mysqli_error($db_conn));
+                print("Problem ".mysqli_error($db_conn));
+            
         }
     }
 
