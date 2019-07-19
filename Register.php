@@ -12,13 +12,13 @@
 		p{
 			color: #ff0000;
 			position:fixed;
-		   	top:25%;
+		   	top:28%;
 		   	left:43%;
 		   	width: 400px;
 		}
 		a{
 			position:fixed;
-		   	top:34%;
+		   	top:38%;
 		   	left:43%;
 		   	width: 250px;
 		}
