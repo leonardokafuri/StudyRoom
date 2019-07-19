@@ -64,13 +64,16 @@
         if(isset($_POST['date']))
         {
             $date = $_POST['date'];
+   		    $_SESSION['date'] = $date;
+   		    
             $time = $_POST['time'];
+            $_SESSION['time'] = $time;
+            
             $db_conn = new mysqli('localhost', 'admin', 'admin', 'booking');
             if (mysqli_connect_errno()) {
                 echo 'Connection to database failed:'.mysqli_connect_error();
                 exit();
               }
-
               $sql = "select * from room";
               $res = mysqli_query($db_conn,$sql);
               if($res !== FALSE)
@@ -106,8 +109,8 @@
         $user = $_SESSION['valid_user'];
         print $room;
         print $user;
-        print $date;
-        print $time;
+        echo $_SESSION['date'];
+        echo $_SESSION['time'];
         if(!empty($date) && !empty($time) && !empty($room))
         {
             $sql = "insert into roombooked(StudentID,RoomNumber,Date,Time)
