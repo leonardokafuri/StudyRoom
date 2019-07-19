@@ -44,3 +44,24 @@ REFERENCES Room(RoomNumber)
 
 INSERT INTO Students VALUES
   ('admin','admin','admin','admin');
+
+insert into Room (RoomNumber, Building) values (101, "South Building");
+insert into Room (RoomNumber, Building) values (102, "South Building");
+insert into Room (RoomNumber, Building) values (103, "South Building");
+insert into Room (RoomNumber, Building) values (104, "South Building");
+insert into Room (RoomNumber, Building) values (105, "South Building");
+insert into Room (RoomNumber, Building) values (106, "South Building");
+insert into Room (RoomNumber, Building) values (107, "South Building");
+insert into Room (RoomNumber, Building) values (108, "South Building");
+insert into Room (RoomNumber, Building) values (109, "South Building");
+insert into Room (RoomNumber, Building) values (110, "South Building");
+insert into Room (RoomNumber, Building) values (111, "North Building");
+insert into Room (RoomNumber, Building) values (112, "North Building");
+insert into Room (RoomNumber, Building) values (113, "North Building");
+insert into Room (RoomNumber, Building) values (114, "North Building");
+insert into Room (RoomNumber, Building) values (115, "North Building");
+insert into Room (RoomNumber, Building) values (116, "North Building");
+insert into Room (RoomNumber, Building) values (117, "North Building");
+insert into Room (RoomNumber, Building) values (118, "North Building");
+insert into Room (RoomNumber, Building) values (119, "North Building");
+insert into Room (RoomNumber, Building) values (120, "North Building");
