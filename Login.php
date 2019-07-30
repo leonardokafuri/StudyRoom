@@ -23,6 +23,16 @@ if (isset($_POST['userid']) && isset($_POST['password']))
   {
     // if they are in the database register the user id
     $_SESSION['valid_user'] = $userid;
+    $query = "SELECT * FROM  Students where StudentID ="."'".$userid."';";
+  	
+  	$stmt = $db_conn->prepare($query);
+    $stmt->execute();
+    $stmt->store_result();
+    $stmt->bind_result($SID,$fName,$lName,$pass);
+    while($stmt->fetch()) {
+    	$_SESSION['fname'] =$fName;
+    	$_SESSION['lname'] =$lName;
+    }
   }
   $db_conn->close();
 }
@@ -32,32 +42,74 @@ if (isset($_POST['userid']) && isset($_POST['password']))
 <html>
 <head>
    <title>Book a Study Room</title>
-    <style type="text/css">
-      fieldset {
-         width: 50%;
-         border: 2px solid #ff0000;
-      }
-      legend {
-         font-weight: bold;
-         font-size: 125%;
-      }
-      label {
-         width: 125px;
-         float: left;
-         text-align: left;
-         font-weight: bold;
-      }
-      input {
-         border: 1px solid #000;
-         padding: 3px;
-      }
-      button {
-         margin-top: 12px;
-      }
-    </style>
+   	<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Style the header */
+header {
+  background-color: #666;
+  padding: 30px;
+  text-align: center;
+  font-size: 35px;
+  color: white;
+}
+
+/* Create two columns/boxes that floats next to each other */
+nav {
+  float: left;
+  width: 20%;
+  height: 75%; /* only for demonstration, should be removed */
+  background: #ccc;
+  padding: 20px;
+}
+
+/* Style the list inside the menu */
+nav ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+article {
+  float: left;
+  padding: 20px;
+  width: 80%;
+  background-color: #f1f1f1;
+  height: 75%;
+
+}
+
+/* Clear floats after the columns */
+section:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Style the footer */
+footer {
+  background-color: #777;
+  padding: 10px;
+  text-align: center;
+  color: white;
+}
+
+/* Responsive layout - makes the two columns/boxes stack on top of each other instead of next to each other, on small screens */
+@media (max-width:600px) {
+  nav, article {
+    width: 100%;
+    height: auto;
+  }
+}
+</style>
 </head>
 <body>
-<h1>Login Page</h1>
+<header>Login Page</header>
 
 <?php
    if (isset($_SESSION['valid_user']))

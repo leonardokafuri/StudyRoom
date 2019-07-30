@@ -18,7 +18,13 @@
 		}
 		a{
 			position:fixed;
-		   	top:38%;
+		   	top:65%;
+		   	left:43%;
+		   	width: 250px;
+		}
+				p2{
+			position:fixed;
+		   	top:55%;
 		   	left:43%;
 		   	width: 250px;
 		}
@@ -67,9 +73,10 @@ $userStudentID= $_POST['SID'];
 $userPassword =$_POST['password'];
 if (!$userFname || !$userLname  || !$userStudentID || !$userPassword)
 	{
-       echo "<p>You have not entered all the required details.<br />
-             Please try again.</p>";
-        echo "<a href='Login.php'>Return to the Login page </a> &nbsp; &nbsp;";
+		
+       echo "<p2>You have not entered all the required details.<br />
+             Please try again.";
+        echo "<a href='Login.php'>Return to the Login page </a></p2> &nbsp; &nbsp;";
         // if any of the fields are not set, show error message and exit the program  
     		exit;
     }
@@ -95,8 +102,8 @@ if (!$userFname || !$userLname  || !$userStudentID || !$userPassword)
 	  {
 	      if($dbsid==$userStudentID)
 	      {
-		 	echo "<p>Student ID already registered, please try a differet ID</p> <br /> <br />";
-		 	echo "<a href='Login.php'>Return to the login page </a> &nbsp; &nbsp;";
+		 	echo "<p2>Student ID already registered, please try a differet ID <br /> <br />";
+		 	echo "<a href='Login.php'>Return to the login page </a></p2> &nbsp; &nbsp;";
 	        //each user will have their own studentID and wont be able to register the same ID twice, if they try 
 	        //show an error message and exit the program
 	        exit;
@@ -105,11 +112,11 @@ if (!$userFname || !$userLname  || !$userStudentID || !$userPassword)
     
     $stmt->execute(); //insert user into the database 
     if ($stmt->affected_rows > 0) {
-        echo  "<p>Login created!<p>";
+        echo  "<p2>Login created!<p2>";
         echo "<a href='Login.php'>Click here to login now!</a>";
 	}else {
-        echo "<p>An error has occurred.<br/>
-              The user was not added.</p>";
+        echo "<p2>An error has occurred.<br/>
+              The user was not added.</p2>";
     }
     $db_conn->close();
     

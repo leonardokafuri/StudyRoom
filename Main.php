@@ -1,8 +1,88 @@
 <html>
     <head>
+    <style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Style the header */
+header {
+  background-color: #666;
+  padding: 30px;
+  text-align: center;
+  font-size: 35px;
+  color: white;
+}
+
+/* Create two columns/boxes that floats next to each other */
+nav {
+  float: left;
+  width: 20%;
+  height: 100%; /* only for demonstration, should be removed */
+  background: #ccc;
+  padding: 20px;
+}
+
+/* Style the list inside the menu */
+nav ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+article {
+  float: left;
+  padding: 20px;
+  width:80%;
+  background-color: #f1f1f1;
+  height: 100%;
+
+}
+
+/* Clear floats after the columns */
+section:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Style the footer */
+footer {
+  background-color: #777;
+  padding: 10px;
+  text-align: center;
+  color: white;
+}
+
+/* Responsive layout - makes the two columns/boxes stack on top of each other instead of next to each other, on small screens */
+@media (max-width:600px) {
+  nav, article {
+    width: 100%;
+    height: auto;
+  }
+}
+</style>
 
     </head>
     <body>
+    <?php
+     session_start();
+     ?>
+     <header>
+	<h1>Make Your Bookings</h1>
+</header>
+     <section>
+  <nav>
+    <ul>
+      <li><a href="Login.php"">Login</a></li>
+      <li><a href="Main.php">Book Room</a></li>
+      <li><a href="DeleteBooking.php">Manage Booking</a></li>
+    </ul>
+  </nav>
+  <article>
             <div class="container main-container">
                     <div id="rooms" class=" page panel panel-primary">
                         <div class="panel-heading "><h4>Rooms Schedule</h4></div>
@@ -43,7 +123,6 @@
                                     <div class="col2">
                                         <br>
                                         <input type="submit" class="btn btn-primary" id="loadCalendar" value="Search" name="go">
-                                        <a href="DeleteBooking.php">Manage</a>
                                     </div>
                                     
                                 </div>
@@ -52,15 +131,14 @@
                         <div class="list-group" id="rooms-list"></div>
                     </div>
                 </div>
-    </body>
-</html>
-
-<?php
-    session_start();
+               
+                <?php
+   
     if(isset($_POST['go']))
     {
         if(isset($_POST['date']))
         {
+        	
             $date = $_POST['date'];
    		    $_SESSION['date'] = $date;
    		    
@@ -122,5 +200,14 @@
             
         }
     }
+    echo "</article>
+</section>
+<footer>
+  <p>Welcome &nbsp".$_SESSION['fname']."&nbsp".$_SESSION['lname']."</p>
+</footer>";
 
 ?>
+             
+    </body>
+</html>
+
