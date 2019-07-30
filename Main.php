@@ -145,7 +145,7 @@ footer {
             $time = $_POST['time'];
             $_SESSION['time'] = $time;
             
-            $db_conn = new mysqli('localhost', 'admin', 'admin', 'booking');
+            $db_conn = new mysqli('35.232.4.102', 'root', '', 'booking');
             if (mysqli_connect_errno()) {
                 echo 'Connection to database failed:'.mysqli_connect_error();
                 exit();
@@ -176,7 +176,7 @@ footer {
     if(isset($_POST['book']))
     {
 
-        $db_conn = new mysqli('localhost', 'admin', 'admin', 'booking');
+        $db_conn = new mysqli('35.232.4.102', 'root', '', 'booking');
             if (mysqli_connect_errno()) {
                 echo 'Connection to database failed:'.mysqli_connect_error();
                 exit();
@@ -187,9 +187,9 @@ footer {
         $time = $_SESSION['time'];
         if(!empty($date) && !empty($time) && !empty($room))
         {
-            $sql = "insert into roombooked(StudentID,RoomNumber,Date,Time)
+            $sql = "insert into RoomBooked(StudentID,RoomNumber,Date,Time)
             values('$user','$room','$date','$time')";
-            $sql2 = "insert into roomavailability(RoomNumber,Date,Time)
+            $sql2 = "insert into RoomAvailability(RoomNumber,Date,Time)
             values('$room','$date','$time')";
             $res = mysqli_query($db_conn,$sql);
             $res = mysqli_query($db_conn,$sql2);

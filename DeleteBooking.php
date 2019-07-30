@@ -88,7 +88,7 @@ if (isset($_SESSION['valid_user']))
     echo '<p>You are logged in as StudentID: '.$_SESSION['valid_user'].' <br />';
 	$user = $_SESSION['valid_user'];
 	
-	$db_conn = new mysqli('localhost', 'admin', 'admin', 'booking');
+	$db_conn = new mysqli('35.232.4.102', 'root', '', 'booking');
 
  	if (mysqli_connect_errno()) {
     echo 'Connection to database failed:'.mysqli_connect_error();
@@ -196,16 +196,16 @@ echo "<select name='room'>
     {
     		
 		//check if avalable
-		$query = "select * from roombooked where 
+		$query = "select * from RoomBooked where 
             RoomNumber='".$_POST['room']."' and 
             Date='".$_POST['date']."' and
             Time='".$_POST['time']."'";
-            $result = $db_conn->query($query);
-  if ($result->num_rows)
+            $result = mysqli_query($db_conn,$query);
+  if (mysqli_num_rows($result))
   {
 	echo "Room not available, try again";
   }else{
-  	$sqlUpdate = "UPDATE roombooked SET RoomNumber='".$_POST['room']."',
+  	$sqlUpdate = "UPDATE RoomBooked SET RoomNumber='".$_POST['room']."',
             Date='".$_POST['date']."',
             Time='".$_POST['time']."' where BookingID ='" .$_SESSION['bookingID']."'" ;
 

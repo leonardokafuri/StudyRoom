@@ -7,20 +7,20 @@ if (isset($_POST['userid']) && isset($_POST['password']))
   $userid = $_POST['userid'];
   $password = $_POST['password'];
 
-  $db_conn = new mysqli('localhost', 'admin', 'admin', 'booking');
+ $db_conn = new mysqli('35.232.4.102', 'root', '', 'booking');
 
   if (mysqli_connect_errno()) {
     echo 'Connection to database failed:'.mysqli_connect_error();
     exit();
   }
 
-  $query = "select * from students where 
+  $query = "select * from Students where 
             StudentID='".$userid."' and 
             password='".$password."'";
 
-  $result = $db_conn->query($query);
-  if ($result->num_rows)
-  {
+  $result = mysqli_query($db_conn,$query);
+  if (mysqli_num_rows($result))
+{ 
     // if they are in the database register the user id
     $_SESSION['valid_user'] = $userid;
     $query = "SELECT * FROM  Students where StudentID ="."'".$userid."';";
