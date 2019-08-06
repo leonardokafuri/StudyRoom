@@ -81,7 +81,13 @@ if (!$userFname || !$userLname  || !$userStudentID || !$userPassword)
     		exit;
     }
 
-	 $db_conn = new mysqli('35.247.120.216', 'admin', 'admin', 'booking');
+	  $socket = "/cloudsql/roombooking-248319:us-west1:roomdatabase";
+	  $host=NULL;
+	  $port=null;
+	  $userDB="admin";
+	  $dbpass="admin";
+	  $db="booking";
+	  $db_conn = new mysqli($host, $userDB, $dbpass, $db,$port,$socket);
 	if (mysqli_connect_errno()) 
 	{
 	    echo 'Connection to database failed:'.mysqli_connect_error();

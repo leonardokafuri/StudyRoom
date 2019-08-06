@@ -6,8 +6,13 @@ if (isset($_POST['userid']) && isset($_POST['password']))
   // if the user has just tried to log in
   $userid = $_POST['userid'];
   $password = $_POST['password'];
-
-  $db_conn = new mysqli('35.247.120.216', 'admin', 'admin', 'booking');
+  $socket = "/cloudsql/roombooking-248319:us-west1:roomdatabase";
+  $host=NULL;
+  $port=null;
+  $userDB="admin";
+  $dbpass="admin";
+  $db="booking";
+  $db_conn = new mysqli($host, $userDB, $dbpass, $db,$port,$socket);
 
   if (mysqli_connect_errno()) {
     echo 'Connection to database failed:'.mysqli_connect_error();
@@ -115,7 +120,7 @@ footer {
    if (isset($_SESSION['valid_user']))
   {
     echo '<p>You are logged in as: '.$_SESSION['valid_user'].' <br />';
-    echo '<a href="main.php">Book a room</a></p>';
+    echo '<a href="Main.php">Book a room</a></p>';
     echo '<a href="DeleteBooking.php">Manage  your Bookings</a></p>';
 	echo '<a href="logout.php">Log out</a></p>';
   }

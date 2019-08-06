@@ -88,7 +88,13 @@ if (isset($_SESSION['valid_user']))
     echo '<p>You are logged in as StudentID: '.$_SESSION['valid_user'].' <br />';
 	$user = $_SESSION['valid_user'];
 	
-	$db_conn = new mysqli('35.247.120.216', 'admin', 'admin', 'booking');
+  $socket = "/cloudsql/roombooking-248319:us-west1:roomdatabase";
+  $host=NULL;
+  $port=null;
+  $userDB="admin";
+  $dbpass="admin";
+  $db="booking";
+  $db_conn = new mysqli($host, $userDB, $dbpass, $db,$port,$socket);
 
  	if (mysqli_connect_errno()) {
     echo 'Connection to database failed:'.mysqli_connect_error();
@@ -209,7 +215,7 @@ echo "<select name='room'>
             Date='".$_POST['date']."',
             Time='".$_POST['time']."' where BookingID ='" .$_SESSION['bookingID']."'" ;
 
-$stmt = $db_conn->prepare($sqlUpdate);
+		$stmt = $db_conn->prepare($sqlUpdate);
 	     $stmt->execute();
 	     echo "BookingID: ".$_SESSION['bookingID']." updated successfully <br /> <br />";
 	     
