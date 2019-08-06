@@ -7,7 +7,7 @@ if (isset($_POST['userid']) && isset($_POST['password']))
   $userid = $_POST['userid'];
   $password = $_POST['password'];
 
- $db_conn = new mysqli('35.232.4.102', 'root', '', 'booking');
+  $db_conn = new mysqli('35.247.120.216', 'admin', 'admin', 'booking');
 
   if (mysqli_connect_errno()) {
     echo 'Connection to database failed:'.mysqli_connect_error();

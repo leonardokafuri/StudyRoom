@@ -145,7 +145,7 @@ footer {
             $time = $_POST['time'];
             $_SESSION['time'] = $time;
             
-            $db_conn = new mysqli('35.232.4.102', 'root', '', 'booking');
+            $db_conn = new mysqli('35.247.120.216', 'admin', 'admin', 'booking');
             if (mysqli_connect_errno()) {
                 echo 'Connection to database failed:'.mysqli_connect_error();
                 exit();
@@ -171,12 +171,13 @@ footer {
                     print("</form>");
                 }
               }
+              mysqli_close($db_conn);
         }
     }
     if(isset($_POST['book']))
     {
 
-        $db_conn = new mysqli('35.232.4.102', 'root', '', 'booking');
+      $db_conn = new mysqli('35.247.120.216', 'admin', 'admin', 'booking');
             if (mysqli_connect_errno()) {
                 echo 'Connection to database failed:'.mysqli_connect_error();
                 exit();
@@ -195,9 +196,11 @@ footer {
             $res = mysqli_query($db_conn,$sql2);
             if($res)
 				print("Bookings added");
+				
 			else
                 print("Problem ".mysqli_error($db_conn));
             
+            mysqli_close($db_conn);    
         }
     }
     echo "</article>

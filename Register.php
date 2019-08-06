@@ -81,7 +81,7 @@ if (!$userFname || !$userLname  || !$userStudentID || !$userPassword)
     		exit;
     }
 
-	$db_conn = new mysqli('35.232.4.102', 'root', '', 'booking');
+	 $db_conn = new mysqli('35.247.120.216', 'admin', 'admin', 'booking');
 	if (mysqli_connect_errno()) 
 	{
 	    echo 'Connection to database failed:'.mysqli_connect_error();

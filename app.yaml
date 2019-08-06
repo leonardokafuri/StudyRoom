@@ -1,0 +1,21 @@
+runtime: php55
+api_version: 1
+
+handlers:
+- url: /Register.php
+  script: Register.php
+
+- url: /
+  script: Login.php
+
+- url: /Main.php
+  script: Main.php
+
+- url: /DeleteBooking.php
+  script: DeleteBooking.php
+
+- url: /Login.php
+  script: Login.php 
+
+- url: /logout.php
+  script: logout.php 
